@@ -1,0 +1,57 @@
+/*==========================================*/
+|FLUJO DE DATOS                             |
+/*==========================================*/
+
+1.0 llamar un servicio angular.service() 
+1.1 Peticion al servidor de las coordenadas del mapa (Promise)
+
+Orden controladores
+1.NodesController
+
+
+1.Carga modelo
+
+
+1. NodesController -> inicia picaso 
+
+
+/*==========================================*/
+|FLUJO DE EJECUCION                          |
+/*==========================================*/
+
+* Se invocan las dependencias de los controladores:
+
+	NodesController
+	-NodesModel    | dir: NodesModel.js
+	-PicassoModel  | dir: PicassoModel.js 
+
+	PicassoController
+	-NodesModel    NodesModel.js 
+	-PicassoModel  PicassoModel.js 
+
+* Los Modelos ejecutan los servicios app.service() ejecutando las peticiones REST (Get, Post , Put, Delete) que requieran los controladores.
+
+	NodesController
+	-NodesModel._service = (NodesService | dir: NodesService.js)   
+
+	PicassoController
+	-PicassoModel._service = (NodesService | dir: NodesService.js)
+
+* Se ejecutan los script existentes en el controlador (Nota: solo codigo no asincrono).
+
+* Se ejecutan los script contenidos en las ejecuciones de las promesas 'promise.then(...)' de los controladores. 
+
+	  promise.then(
+	  function(answer) {
+	    // do something
+	  },
+	  function(error) {
+	    // report something
+	  },
+	  function(progress) {
+	   // report progress
+	  });
+
+
+	   
+	
