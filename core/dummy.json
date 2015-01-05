@@ -75,8 +75,8 @@
         }
       ],
       "name": "N2",
-      "fill": "#07A3DC",
-      "fill_over": "#07A3DC",
+      "fill": "#210021",
+      "fill_over": "#210021",
       "stroke": "#530053",
       "strokeWidth": "1.5",
       "parent":"N0",
@@ -102,8 +102,8 @@
         }
       ],
       "name": "N3",
-      "fill": "#07A3DC",
-      "fill_over": "#07A3DC",
+      "fill": "#210021",
+      "fill_over": "#210021",
       "stroke": "#530053",
       "strokeWidth": "1.5",
       "parent":"N2",
@@ -129,8 +129,8 @@
         }
       ],
       "name": "N4",
-      "fill": "#07A3DC",
-      "fill_over":  "#07A3DC",
+      "fill": "#210021",
+      "fill_over":  "#210021",
       "stroke": "#530053",
       "strokeWidth": "1.5",
       "parent":"N2",
@@ -165,8 +165,8 @@
       
       ],
       "name": "N5",
-      "fill": "#07A3DC",
-      "fill_over": "#07A3DC",
+      "fill": "#210021",
+      "fill_over": "#210021",
       "stroke": "#530053",
       "strokeWidth": "1.5",
       "parent":"N0",

@@ -6,8 +6,7 @@ var PicassoModel = (function () {
   function init(nodes){
 
     console.log('run: PicassoModel::init()');
-    this.nodes = nodes;
-    
+    this.nodes = nodes;   
   }
 
   function createPathData(node){
@@ -32,17 +31,17 @@ var PicassoModel = (function () {
 
   function setAttribute( attr , value ){
       /*Agregar atributos al objeto SVG*/
-      this.node_selected.svg_path_element.setAttribute(attr , value);
+      this.selected_node.svg_path_element.setAttribute(attr , value);
   }
 
   function select(index){
     
-    if(this.node_selected.node!=null){
+    if(this.selected_node.node!=null){
 
-      if(this.node_selected.node.index!=index){
+      if(this.selected_node.node.index!=index){
        
         //Restaura el color de borde del antiguo nodo svg seleccionado
-        this.stroke(this.node_selected.node.index);
+        this.stroke(this.selected_node.node.index);
 
         //Asigna color 'seleccionado' al borde del nuevo nodo svg seleccionado
         this.stroke(index, '#39ff14');
@@ -52,8 +51,8 @@ var PicassoModel = (function () {
       }else{
 
         //Deselecionar y restaurar el color de borde del antiguo nodo svg seleccionado
-        this.stroke(this.node_selected.node.index);
-        this.node_selected = {};
+        this.stroke(this.selected_node.node.index);
+        this.selected_node = {};
 
         return false;
       }
@@ -65,17 +64,40 @@ var PicassoModel = (function () {
       return true;
 
     }
+  }
+
+  function pushMultiselectNode(index){
+
+    this.multiselected_nodes.push(this.nodes[index]);
+    this.stroke(index, '#2FB5F3');  //Asigna color 'multiseleccion' al borde al nodo svg
+  
+  }
+
+  function destroyMultiselectNode(){
+
+    for (var i = 0; i < this.multiselected_nodes.length; i++) {
+      this.stroke(this.multiselected_nodes[i].index);
+    };
+
+    this.multiselected_nodes=[];
+    this.selected_node.node = null;
+    console.log(this.selected_node);
 
   }
+
+  ////////////////////////////////////////////////////////////////////////////////
 
   return {
  
     init:init,
     _service:null,
     _nodes:null,
+    multiselected_nodes:[],
     _currentNode:0,
-    //Nodo seleccionado node_selected
-    node_selected: {},  // node_selected{svg_path_element:'', node: null}
+    pushMultiselectNode:pushMultiselectNode,
+    destroyMultiselectNode:destroyMultiselectNode,
+    //Nodo seleccionado selected_node
+    selected_node: {},  // selected_node{svg_path_element:'', node: null}
     createPathData:createPathData,//Crea el path para el nodo SVG <path>
     setAttribute:setAttribute,//Agregar un atributo SVG a nodo SVG <path>
     select:select,//Seleccionar un nodo current node.
@@ -86,24 +108,24 @@ var PicassoModel = (function () {
 
     //Asigna color de relleno a un nodo svg
     fill:function(index){
-      this.node_selected.svg_path_element  = document.getElementById(this.nodes[index].name); //seleccionar nuevo elemento
+      this.selected_node.svg_path_element  = document.getElementById(this.nodes[index].name); //seleccionar nuevo elemento
       this.setAttribute("fill" , this.nodes[index].fill);
     },
 
     //Asigna color de relleno cuando el mouse pasa por un nodo svg
     fillover:function(index){
-      this.node_selected.svg_path_element  = document.getElementById(this.nodes[index].name); //seleccionar nuevo elemento
+      this.selected_node.svg_path_element  = document.getElementById(this.nodes[index].name); //seleccionar nuevo elemento
       this.setAttribute("fill" , this.nodes[index].fill_over); // ColorLuminance(node.fill,0.25) set color de borde
     },
 
     //Asigna color de borde a un nodo svg
     stroke:function(index,color){
 
-      this.node_selected.node= this.nodes[index];
-      this.node_selected.svg_path_element  = document.getElementById(this.node_selected.node.name); //seleccionar elemento DOM svg <path>
+      this.selected_node.node= this.nodes[index];
+      this.selected_node.svg_path_element  = document.getElementById(this.selected_node.node.name); //seleccionar elemento DOM svg <path>
       
       if(color==undefined)
-      this.setAttribute("stroke" , this.node_selected.node.stroke); //set color de borde
+      this.setAttribute("stroke" , this.selected_node.node.stroke); //set color de borde
       else
       this.setAttribute("stroke" , color); //set color de borde
 
@@ -155,7 +177,7 @@ app.provider('PicassoModel', function() {
   function setNode(node){
 
     //Crea una ruta path SVG
-    this.node_selected.svg_path_element = document.createElementNS("http://www.w3.org/2000/svg", 'path'); 
+    this.selected_node.svg_path_element = document.createElementNS("http://www.w3.org/2000/svg", 'path'); 
 
     //Crea datos de ruta 'd'
     this.svg_path_element = this.createPathData(node);
@@ -168,7 +190,7 @@ app.provider('PicassoModel', function() {
     this.setAttribute("fill" , node.fill ); //Set stroke colour #530053
    
     //Agrega nodo al svg_grouping 'g'
-    this.svg_grouping.appendChild( this.node_selected.svg_path_element );
+    this.svg_grouping.appendChild( this.selected_node.svg_path_element );
 
   }
 

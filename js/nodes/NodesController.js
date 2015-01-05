@@ -58,10 +58,18 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
     }
   );
 
+  //Click sobre un nodo svg para activar seleccionador multiple de nodos svg
+  $scope.click= function(index, event){
+    PicassoModel.pushMultiselectNode(index);
+  },
+
+  //Doble click sobre un nodo svg para seleccionarlo
   $scope.dbl_click= function(index, event){
     
-    var selected = PicassoModel.select(index);
+    PicassoModel.destroyMultiselectNode();
 
+    var selected = PicassoModel.select(index);
+    
     if(selected)
     $scope.current_node = $scope.nodes[index];
     else

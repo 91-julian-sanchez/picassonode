@@ -53,7 +53,7 @@
           </g>
 
           <g ng-repeat="node in nodes">
-            <path id="{{node.name}}" d="{{node.path_data}}" fill="{{node.fill}}" stroke="{{node.stroke}}" stroke-width="{{node.strokeWidth}}" ng-dblclick='dbl_click(node.index,$event)' ng-mouseover='mouseover(node.index,$event)' ng-mouseleave='mouseleave(node.index,$event)'>
+            <path id="{{node.name}}" d="{{node.path_data}}" fill="{{node.fill}}" stroke="{{node.stroke}}" stroke-width="{{node.strokeWidth}}" ng-click='click(node.index,$event)' ng-dblclick='dbl_click(node.index,$event)' ng-mouseover='mouseover(node.index,$event)' ng-mouseleave='mouseleave(node.index,$event)'>
           </g>
             
        </g>
