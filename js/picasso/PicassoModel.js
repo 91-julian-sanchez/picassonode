@@ -36,53 +36,66 @@ var PicassoModel = (function () {
 
   function select(index){
     
-    if(this.selected_node.node!=null){
-
-      if(this.selected_node.node.index!=index){
-       
-        //Restaura el color de borde del antiguo nodo svg seleccionado
-        this.stroke(this.selected_node.node.index);
-
-        //Asigna color 'seleccionado' al borde del nuevo nodo svg seleccionado
-        this.stroke(index, '#39ff14');
-
-        return true;
-
-      }else{
-
-        //Deselecionar y restaurar el color de borde del antiguo nodo svg seleccionado
-        this.stroke(this.selected_node.node.index);
-        this.selected_node = {};
-
-        return false;
-      }
-       
-    }else{
+    if(this._currentNode != null && this._currentNode != index  ){
+      //Si existe un nodo seleccionado y el nuevo nodo svg seleccionado es diferente al anterior
+      //Restaura el color de borde del antiguo nodo svg seleccionado
+      this.stroke(this._currentNode);
 
       //Asigna color 'seleccionado' al borde del nuevo nodo svg seleccionado
       this.stroke(index, '#39ff14');
+
       return true;
 
+    }else if(this._currentNode == null){
+      //Si no existe ningun nodo seleccionado asigna color 'seleccionado' al borde del nuevo nodo svg seleccionado
+      this.stroke(index, '#39ff14');
+      return true;
+
+    }else{
+      //Si existe un nodo seleccionado y el nuevo nodo svg seleccionado es igual al anterior
+      //Restaura el color de borde del antiguo nodo svg seleccionado y deselecionarlo
+      this.stroke(this._currentNode);
+      return false;
     }
+
+  }
+
+  function deselect(){
+
+    if(this._currentNode!=null)
+      this.stroke(this._currentNode);
+
+    this._currentNode == null;
+
+    return true;
   }
 
   function pushMultiselectNode(index){
 
-    this.multiselected_nodes.push(this.nodes[index]);
-    this.stroke(index, '#2FB5F3');  //Asigna color 'multiseleccion' al borde al nodo svg
-  
+    if(this.multiselected_nodes.indexOf(index) == (-1) || this.multiselected_nodes.length == 0){
+      this.multiselected_nodes.push(index);
+      this.stroke(index, '#2FB5F3');  //Asigna color 'multiseleccion' al borde al nodo svg
+    }
+
+  }
+
+  function deleteMultiselectNode(index){
+    this.multiselected_nodes.slice(index, 1);
   }
 
   function destroyMultiselectNode(){
 
     for (var i = 0; i < this.multiselected_nodes.length; i++) {
-      this.stroke(this.multiselected_nodes[i].index);
+      this.stroke(this.multiselected_nodes[i]);
     };
 
     this.multiselected_nodes=[];
     this.selected_node.node = null;
-    console.log(this.selected_node);
 
+  }
+
+  function resetSelectedNode(){
+    this.selected_node= {svg_path_element:'', node: null};
   }
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -91,16 +104,23 @@ var PicassoModel = (function () {
  
     init:init,
     _service:null,
+
     _nodes:null,
+    _currentNode:null,
+    //Modo seleccion simple 
+    selected_node: {svg_path_element:'', node: null},//Nodo seleccionado selected_node
+    select:select,//Seleccionar un nodo current node.
+    deselect:deselect,
+    //Modo multiseleccion
     multiselected_nodes:[],
-    _currentNode:0,
     pushMultiselectNode:pushMultiselectNode,
+    deleteMultiselectNode:deleteMultiselectNode,
     destroyMultiselectNode:destroyMultiselectNode,
-    //Nodo seleccionado selected_node
-    selected_node: {},  // selected_node{svg_path_element:'', node: null}
+
+    resetSelectedNode: resetSelectedNode,
     createPathData:createPathData,//Crea el path para el nodo SVG <path>
     setAttribute:setAttribute,//Agregar un atributo SVG a nodo SVG <path>
-    select:select,//Seleccionar un nodo current node.
+
   
     getNode:function(index){   
       return document.getElementById(this.nodes[index].name);
