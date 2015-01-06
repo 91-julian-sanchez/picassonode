@@ -25,6 +25,8 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
       //Configuracion $scope(ambito)
       $scope.nodes = response.data.nodes; //Guarda nodos en $scope(ambito).
       $scope.current_node = null; // Nodo actual.
+      $scope.multiselected_nodes = null; //Modo multiseleccion.
+      $selected_current_nodes=null;
    
       //Actualiza $scope
       $scope.$watchCollection('current_node', function(newModel, oldModel) {
@@ -51,7 +53,14 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
         //console.log('old current_node'); console.log(oldModel);
 
       });
-      
+
+      //Actualiza $scope
+      $scope.$watchCollection('selected_current_nodes', function(newModel, oldModel) {
+       
+
+        console.log(newModel);
+      });
+
     },
     function(error) {
       $log.error('failure loading movie', error);
@@ -61,18 +70,22 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
   //Click sobre un nodo svg para activar seleccionador multiple de nodos svg
   $scope.click= function(index, event){
 
-    PicassoModel.pushMultiselectNode(index);
+    $scope.multiselected_nodes = PicassoModel.pushMultiselectNode(index);
 
     var deselected = PicassoModel.deselect(index);
 
     if(deselected)
     $scope.current_node = null;
 
+    $scope.select_multiple_mode=true;
+    $scope.select_simple_mode=false;
+
   },
 
   //Doble click sobre un nodo svg para seleccionarlo
   $scope.dbl_click= function(index, event){
     
+    $scope.multiselected_nodes = null;
     PicassoModel.destroyMultiselectNode();
 
     var selected = PicassoModel.select(index);
@@ -85,6 +98,8 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
       $scope.current_node = null;
     }
     
+    $scope.select_simple_mode=true;
+    $scope.select_multiple_mode=false;
 
   },
 

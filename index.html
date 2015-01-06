@@ -61,7 +61,9 @@
     </svg>
 
     <div id='control-panel'>
-      <div>
+
+      <div ng-show="select_simple_mode">
+        <h4>Selección simple</h4>
         name: <input ng-model="current_node.name"><br> 
         fill: <input ng-model="current_node.fill"> <br> 
         fill_over: <input ng-model="current_node.fill_over"> <br> 
@@ -71,6 +73,18 @@
         childs: <input ng-model="current_node.childs">
         {{current_node}}
       </div>
+
+      <div ng-show="select_multiple_mode">
+        <h4>Selección multiple</h4>
+        name: <input ng-model="selected_current_nodes.name"><br> 
+        fill: <input ng-model="selected_current_nodes.fill"> <br> 
+        fill_over: <input ng-model="selected_current_nodes.fill_over"> <br> 
+        stroke: <input ng-model="selected_current_nodes.stroke"> <br> 
+        strokeWidth: <input ng-model="selected_current_nodes.strokeWidth"> <br> 
+        {{multiselected_nodes}}
+        {{selected_current_nodes  }}
+      </div>
+
     </div>
     
   </div>

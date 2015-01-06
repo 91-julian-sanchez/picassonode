@@ -40,6 +40,7 @@ var PicassoModel = (function () {
       //Si existe un nodo seleccionado y el nuevo nodo svg seleccionado es diferente al anterior
       //Restaura el color de borde del antiguo nodo svg seleccionado
       this.stroke(this._currentNode);
+      this._currentNode == null;
 
       //Asigna color 'seleccionado' al borde del nuevo nodo svg seleccionado
       this.stroke(index, '#39ff14');
@@ -55,6 +56,8 @@ var PicassoModel = (function () {
       //Si existe un nodo seleccionado y el nuevo nodo svg seleccionado es igual al anterior
       //Restaura el color de borde del antiguo nodo svg seleccionado y deselecionarlo
       this.stroke(this._currentNode);
+      this._currentNode == null;
+
       return false;
     }
 
@@ -65,22 +68,33 @@ var PicassoModel = (function () {
     if(this._currentNode!=null)
       this.stroke(this._currentNode);
 
-    this._currentNode == null;
+    this._currentNode = null;
 
     return true;
+    
   }
 
-  function pushMultiselectNode(index){
-
+  function pushMultiselectNode(index){ 
+   
     if(this.multiselected_nodes.indexOf(index) == (-1) || this.multiselected_nodes.length == 0){
       this.multiselected_nodes.push(index);
       this.stroke(index, '#2FB5F3');  //Asigna color 'multiseleccion' al borde al nodo svg
+    }else if(this.multiselected_nodes.length != 0){
+      //Si el nodo svg ya se encuentra en el array de nodos svg multiseleccionados se elimina del array.
+      if(this.multiselected_nodes.indexOf(index)!=(-1)){
+        this.deleteMultiselectNode(this.multiselected_nodes.indexOf(index));//eliminar item de array de nodos svg multiseleccionados
+        this.stroke(index); //Restaurar borde de nodo svg
+      }
+     
     }
+
+    return this.multiselected_nodes;
 
   }
 
   function deleteMultiselectNode(index){
-    this.multiselected_nodes.slice(index, 1);
+    this.multiselected_nodes.splice(index, 1);
+    console.log(this.multiselected_nodes);
   }
 
   function destroyMultiselectNode(){
@@ -143,7 +157,7 @@ var PicassoModel = (function () {
 
       this.selected_node.node= this.nodes[index];
       this.selected_node.svg_path_element  = document.getElementById(this.selected_node.node.name); //seleccionar elemento DOM svg <path>
-      
+
       if(color==undefined)
       this.setAttribute("stroke" , this.selected_node.node.stroke); //set color de borde
       else
