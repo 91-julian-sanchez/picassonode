@@ -4,6 +4,16 @@ var dummy_core = {
 	"title":"jVectormaps",
 	"nodes": [
 	    {
+	      "points": [],
+	      "id": "C0",
+	      "name": "Cluster0",
+	      "fill": "#530053",
+	      "fill_over": "#530053",
+	      "stroke": "#530053",
+	      "strokeWidth": "1.5",
+	      "children":[{"id": "N0"},{"id": "N3"},{"id": "N5"}]
+	    },
+	    {
 	      "points": [
 	        {
 	          "x": "0",
@@ -22,13 +32,13 @@ var dummy_core = {
 	          "y": "0"
 	        }
 	      ],
+	      "id": "N0",
 	      "name": "N0",
 	      "fill": "#530053",
 	      "fill_over": "#530053",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "parent":"none",
-	      "childs":["N2"]
+	      "children":[{"id": "N1"},{"id": "N2"}]
 	    },
 	    {
 	      "points": [
@@ -49,13 +59,13 @@ var dummy_core = {
 	          "y": "0"
 	        }
 	      ],
+	      "id": "N1",
 	      "name": "N1",
 	      "fill": "#530053",
 	      "fill_over": "#530053",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "parent":"none",
-	      "childs":[]
+	      "children":[]
 	    },
 	    {
 	      "points": [
@@ -76,13 +86,13 @@ var dummy_core = {
 	          "y": "0"
 	        }
 	      ],
+	      "id": "N2",
 	      "name": "N2",
 	      "fill": "#210021",
 	      "fill_over": "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "parent":"N0",
-	      "childs":[]
+	      "children":[]
 	    },    
 	    {
 	      "points": [
@@ -103,13 +113,13 @@ var dummy_core = {
 	          "y": "0"
 	        }
 	      ],
+	      "id": "N3",
 	      "name": "N3",
 	      "fill": "#210021",
 	      "fill_over": "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "parent":"N2",
-	      "childs":[]
+	      "children":[{"id":"N4"}]
 	    },
 	    {
 	      "points": [
@@ -130,13 +140,13 @@ var dummy_core = {
 	          "y": "-100"
 	        }
 	      ],
+	      "id": "N4",
 	      "name": "N4",
 	      "fill": "#210021",
 	      "fill_over":  "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "parent":"N2",
-	      "childs":[]
+	      "children":[]
 	    },
 	    {
 	      "points": [
@@ -166,13 +176,13 @@ var dummy_core = {
 	        }
 	      
 	      ],
+	      "id": "N5",
 	      "name": "N5",
 	      "fill": "#210021",
 	      "fill_over": "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "parent":"N0",
-	      "childs":[]
+	      "children":[]
 	    }
 	]
 };

@@ -7,8 +7,8 @@ app = angular.module('nodes',[]);
 /*
  *Se injecta al controlador el modelos NodesModel y PicassoModel y el ambito $scope
 */
-
-app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
+var nodex = {};
+app.controller("NodesController", function($scope, NodesModel , PicassoModel , TreeModel ) {
 
   console.info('run: NodesController');
  
@@ -19,6 +19,9 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
     function(response) { 
 
       console.info('NodesController:promise:response()'); 
+
+      $scope.tree= TreeModel.init( JSON.parse(JSON.stringify(response.data.nodes)) ).model;
+
       //Configuracion modelo
       NodesModel.setNodes(response.data.nodes);
     
@@ -65,6 +68,7 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
       $log.error('failure loading movie', error);
     }
   );
+
 
   //Click sobre un nodo svg para activar seleccionador multiple de nodos svg
   $scope.click= function(index, event){
@@ -113,7 +117,4 @@ app.controller("NodesController", function($scope, NodesModel , PicassoModel ) {
 
 }
 );
-
-
-
 

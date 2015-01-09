@@ -1,0 +1,17 @@
+<div id='layer-{{node.name}}' class='layer' ng-class="{'layer-selected': node.selected}"}>
+
+	<a ng-click="showLayer()" class='layer-eye' ng-class="{'white-color': node.selected}">
+		<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+	</a> 
+
+	<a href="" ng-click='selectLayer(node)' class='layer-name' ng-class="{'white-color': node.selected}">
+		<span ng-show="node.children.length > 0" >|</span>
+		<span ng-show="node.children.length == 0" > -</span>
+		{{node.name}}
+	</a>
+</div>
+<!-- <button ng-click="delete(data)" ng-show="node.children.length > 0">+ 0 </button>  -->
+<ul>
+	<li ng-repeat="node in node.children" ng-include="'js/layers/tree_item_renderer.html'"></li>
+</ul>
+

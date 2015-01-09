@@ -4,7 +4,6 @@ var PicassoModel = (function () {
  
   //inicia Picasso
   function init(nodes){
-
     console.log('run: PicassoModel::init()');
     this.nodes = nodes;   
   }

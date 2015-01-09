@@ -16,7 +16,9 @@ app.controller("PicassoController",function($scope, NodesModel, PicassoModel ){
       //Recorre nodos
       for (var i = 0; i< $scope.nodes.length ; i++) {
 
-        $scope.nodes[i].path_data = PicassoModel.createPathData($scope.nodes[i]);//crea path svg para cada nodo
+        if($scope.nodes[i].points.length!=0)
+          $scope.nodes[i].path_data = PicassoModel.createPathData($scope.nodes[i]);//crea path svg para cada nodo
+        
         $scope.nodes[i].index = i;//crea un index para cada nodo
 
       } 
