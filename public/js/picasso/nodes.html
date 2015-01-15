@@ -1,0 +1,3 @@
+ <path id="{{node.id}}" d="{{node.path_data}}" fill="{{node.fill}}" stroke="{{node.stroke}}" stroke-width="{{node.strokeWidth}}" ng-click='click(node.id,$event)' ng-dblclick='dbl_click(node.id,$event)' ng-mouseover='mouseover(node.id,$event)' ng-mouseleave='mouseleave(node.id,$event)'></path>
+
+<g ng-repeat="node in node.children" ng-include="'js/picasso/nodes.html'"></g>

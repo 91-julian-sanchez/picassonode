@@ -1,0 +1,80 @@
+html {
+    padding: 0;
+    margin: 0;
+    height: 100%; 
+}
+ 
+body {
+    padding: 0;
+    margin: 0;
+    height: 100%; 
+    background: #111111;/*#E6E6E6*/
+}
+ 
+
+div#messageBox {
+ color: white;
+ position: absolute; /* Keep this out of the page flow. */
+ left: 1em;
+}
+ 
+div#liquidTopMargin {
+ height: 1%; /* Provides a small liquid margin between the top of the browser window and the SVG viewport. */
+}   
+
+
+svg{
+  
+}
+
+#control-panel{
+  height: 100%;
+}
+
+
+#control-panel{
+  background: white;
+}
+
+/*LAYERS ======================================================================================= */
+ul#layers, ul#layers li ul{
+  list-style: none;
+  padding-left: 0px;
+}
+
+div.layer{
+  cursor:pointer; cursor: hand;
+  border-top: 1px solid #E6E6E6;
+  overflow: hidden;
+  height: 25px;
+}
+
+div.layer a{
+ float: left;
+ display: block;
+ height: 100%;
+}
+
+div.layer a:hover{
+ color: #337ab7;
+}
+
+div.layer a.layer-eye{
+  width: 10%;
+  text-align: center;
+  /*background: yellow;*/
+}
+
+div.layer a.layer-name{
+  width: 90%;
+  /*background: red;*/
+  text-decoration: none;
+}
+
+.layer-selected{
+  background: #337ab7;
+}
+
+.white-color{
+  color: white!important;
+}

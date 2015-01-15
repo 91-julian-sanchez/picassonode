@@ -1,0 +1,290 @@
+<html data-ng-app="nodes">
+<head>
+  <title>Practica1</title>
+
+  <!--Bootstrap-->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <!--Librerias-->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script src="lib/class.js"></script>
+  <script src="lib/namespace.js"></script>
+  <script src="lib/tree-model.js"></script>
+
+  <!--Angular.js-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+
+  <!--Controladores-->
+  <script src="js/app.js"></script>
+  <script src="js/base/BaseController.js"></script>
+  <script src="js/base/EventDispatcher.js"></script>
+
+  <!--MODULOS-->
+  <!--|- Modulo.Nodes -->
+    <script src='js/nodes/NodesController.js'></script>
+    <script src='js/nodes/NodesModel.js'></script>
+    <script src="js/nodes/NodesService.js"></script>
+  <!--|- Modulo.Tree -->
+    <script src='js/tree/TreeModel.js'></script>
+  <!--|- Modulo.Picasso -->
+    <script src='js/picasso/PicassoController.js'></script>
+    <script src='js/picasso/PicassoModel.js'></script>
+  <!--|- Modulo.Layers -->
+    <script src='js/layers/layersController.js'></script>
+    <script src='js/layers/layersDirective.js'></script>
+
+  <!--<script src='js/navigation/NavigationController.js'></script> -->
+
+</head>
+<body>
+  <div class="container-fluid" data-ng-controller='NodesController'>
+
+    <div class="row">
+      <div id="picasso-panel" class='col-md-10'>
+        <!--  {{nodes}} -->
+
+        <div id="messageBox"> 
+          <p id="screenXY">Pantalla: ( x , y ) </p>
+          <p id="circleXY">Cartesianas: ( x , y )</p> 
+        </div> 
+
+        <!--<div id="liquidTopMargin"></div> --> 
+        <svg id="svgElement" width="80%" height="100%" viewbox="0 0 800 800"  style='background:#111111' data-ng-controller='PicassoController'>
+
+           <!--Transformamos a coordenas cartesianas-->
+           <g transform="translate(400, 400) scale(1, -1)">     
+              <line x1="-400" y1="0" x2="400" y2="0" stroke="#A4A4A6" /> <!-- Eje X -->
+              <line x1="0" y1="-400" x2="0" y2="400" stroke="#A4A4A6" /> <!-- Eje Y --> 
+              <!--Dibuja ruta-->
+              <path id='ruta' stroke="#00FFFF" fill="none" d="M-200 0 L0 200 L200 0 L0 -200 Z" /> 
+              <!--Transforma a coordenas pantalla-->
+              <g transform="scale(1, -1)">
+                <text x="356" y="-5" fill="white" >X</text>
+                <text x="5" y="-383" fill="white" >Y</text>
+                <text x="5" y="-8"   fill="white" >(0, 0)</text>
+              </g>
+
+              <g ng-repeat="node in tree" ng-include="'js/picasso/nodes.html'"></g>
+                
+           </g>
+
+        </svg>
+
+      </div>
+
+      <div id='control-panel' class='col-md-2'>
+
+        <a href="/signout" class="text-center new-account">Sign Out</a>
+
+        <div id="layers-container" ng-controller='layersController'>
+          Nodes
+
+          <ul id='layers'>
+            <li ng-repeat="node in tree.model.children" ng-include="'js/layers/tree_item_renderer.html'" >
+          </ul>
+        </div>
+
+        <div id="properties-container">
+          Properties 
+          <div ng-show="select_simple_mode">
+            <h4>Selección simple</h4>
+            name: <input ng-model="current_node.name"><br> 
+            fill: <input ng-model="current_node.fill"> <br> 
+            fill_over: <input ng-model="current_node.fill_over"> <br> 
+            stroke: <input ng-model="current_node.stroke"> <br> 
+            strokeWidth: <input ng-model="current_node.strokeWidth"> <br> 
+            children: <input ng-model="current_node.children">
+           <!--  {{current_node}} -->
+          </div>
+
+          <div ng-show="select_multiple_mode">
+            <h4>Selección multiple</h4>
+            fill: <input ng-model="selected_current_nodes.fill"> <br> 
+            fill_over: <input ng-model="selected_current_nodes.fill_over"> <br> 
+            stroke: <input ng-model="selected_current_nodes.stroke"> <br> 
+            strokeWidth: <input ng-model="selected_current_nodes.strokeWidth"> <br> 
+           <!--  {{multiselected_nodes}} -->
+           <!--  {{selected_current_nodes  }} -->
+          </div>
+        </div>
+        
+
+
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+
+ <script type="text/javascript">
+
+
+
+    /* GLOBALS */
+    var requestAnimationFrameID;
+    var transformObject;
+
+    var path={
+        element: document.getElementById("ruta"),
+    };
+
+  
+    var animate = {
+
+      translation:{
+        delay:16,//retraso
+        init:function(){
+            //path.init();
+            /*Velocidad*/
+            // Mueve el círculo a una velocidad de 50 píxeles por segundo en la dirección x.
+            path.element.vx = 50;
+            // Mueve el círculo a una velocidad de 20 píxeles por segundo en la dirección y.
+            path.element.vy = 20; 
+            
+            // radio del circulo
+        /*    path.element.center = path.child[0].circle.r.baseVal.value;
+            //console.log( animate.path.child[0].circle.cx.baseVal.value);
+            requestAnimationFrameID = requestAnimationFrame(animate.translation.run); */
+        },
+        run:function(){
+
+          requestAnimationFrameID = requestAnimationFrame(animate.translation.run); // Hilo animacion
+
+          path.child[0].circle.cx.baseVal.value+=  animate.translation.s2d(  path.child[0].circle.vx ); // Mueva el círculo en la dirección x una pequeña cantidad.
+          path.child[0].circle.cy.baseVal.value += animate.translation.s2d( path.child[0].circle.vy ); // Mueva el círculo en la dirección y una pequeña cantidad.
+
+          //Si circulo desde su arco colisiona el ancho o alto de la ventana grafica SVG de detiene la animacion
+
+          if (( path.child[0].circle.cx.baseVal.value>= (path.boxWidth - path.child[0].circle.radius)) || (  path.child[0].circle.cy.baseVal.value>= (path.boxHeight - path.child[0].circle.radius))) 
+            cancelAnimationFrame(requestAnimationFrameID); 
+
+        },
+        s2d:function(s){
+
+          /*
+            Velocidad de desplazamiento "speed to displacement". retorna el valor de dezplazamiento por segundo.
+            se asume que:
+
+               * El parametro s es en pixeles por segundo
+               * "constants.delay" is a valid global constant.
+               * una unidad es igual a un 1 pixel.
+          */
+          return (s / 1000) * animate.translation.delay;
+     
+        }
+      },
+      
+      rotation:{
+        /* CONSTANTS */
+        initialTheta : 0,  //ángulo de rotación inicial, 0 grados.
+        thetaDelta : 0.3,  //Rotacion de objeto 0.3 grados
+        angularLimit : 90, //angulo de rotacion final, 90 grados
+
+        init:function(){
+           console.log('animacion');
+           path.element.currentTheta= animate.rotation.initialTheta;
+           path.element.transform.baseVal.appendItem(svgElement.createSVGTransform());
+           //inicia loop
+           requestAnimationFrameID = requestAnimationFrame(animate.rotation.run); 
+        },
+
+        run:function(){
+          
+          var transformObject;
+
+          if (path.element.currentTheta > animate.rotation.angularLimit) {
+            cancelAnimationFrame(requestAnimationFrameID); // Instruct the browser to stop calling requestAnimationFrame()'s callback.
+            return;
+          }
+
+          path.element.transform.baseVal.getItem(0).setRotate(path.element.currentTheta, 0, 0); // Access the transform object (that was appended to mySquare in the init() function) and use its setRotate method to rotate the square about the point (0, 0) (which is at the center of the SVG viewport).
+          path.element.currentTheta += animate.rotation.thetaDelta; // Place this line here so that the square isn't over rotated on the last call to doAnim().
+          requestAnimationFrameID = requestAnimationFrame(animate.rotation.run); // Call the doAnim() function about every 60 times per second (i.e., 60 FPS).
+        }
+
+      }
+
+    }
+
+  //  animate.translation.init();
+    animate.rotation.init();
+
+    var core = {
+
+      init:function(){
+        //Listener para movimiento de mouse
+        window.addEventListener('mousemove', core.mouseCoordinates, false);
+
+      },
+      mouseCoordinates:function(evt){
+
+        var screenXY = document.getElementById('screenXY'); // Required for Firefox.
+        //Muestra coordenas en la pantallla
+        screenXY.textContent = "Pantalla: (" + evt.pageX + ", " + evt.pageY + ")";
+
+        var svgElement = document.getElementById('svgElement'); 
+        //Nuevo punto SVG
+        var point = svgElement.createSVGPoint(); 
+        //Guardar coordenadas de la pantalla en punto SVG
+        point.x = evt.pageX; 
+        point.y = evt.pageY;
+        
+        var svgCircle = document.getElementById('ruta'); 
+        //Transforma la coordenadas de la pantalla a las del elemento SVG
+        point = core.coordinateTransform(point, svgCircle); 
+        
+        var circleXY = document.getElementById('circleXY');
+        //Muestra coordenas en circulo
+        circleXY.textContent = "Cartesianas: (" + point.x.toFixed(0) + ", " + point.y.toFixed(0) + ")"; 
+        
+      },
+      coordinateTransform:function(screenPoint, someSvgObject){
+        //obtiene la CTM asociada con el tamaño actual del círculo y de la pantalla.
+        var CTM = someSvgObject.getScreenCTM(); 
+        //invierte la matriz CTM y multiplica M-1 por la coordenada de pantalla específica 
+        return screenPoint.matrixTransform( CTM.inverse() ); 
+      }
+
+    }
+
+    core.init();
+
+    /*
+    Craig Buckler - http://www.sitepoint.com/javascript-generate-lighter-darker-color/
+
+     ColorLuminance( node.fill , 0.25)
+    ColorLuminance( node.fill, 0) 
+    */
+    function ColorLuminance(hex, lum) {
+
+      // validate hex string
+      hex = String(hex).replace(/[^0-9a-f]/gi, '');
+      if (hex.length < 6) {
+        hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+      }
+      lum = lum || 0;
+
+      // convert to decimal and change luminosity
+      var rgb = "#", c, i;
+      for (i = 0; i < 3; i++) {
+        c = parseInt(hex.substr(i*2,2), 16);
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        rgb += ("00"+c).substr(c.length);
+      }
+
+      return rgb;
+      
+    }
+
+
+
+
+
+  </script>
+<script type="text/javascript" src='js/core.js'></script>
+</html>
