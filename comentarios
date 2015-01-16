@@ -70,5 +70,18 @@ Orden controladores
 
 
 * MODULO NODES
-	   
 
+	|-CONTROLADOR
+		* Es el controlador principal sera el padre de los demas controladores y el que tendra el amito ($scope) con mayor jerarquia
+		* El controlador invoca el servicio de TreeServise que contiene los nodos traidos desde el servidor y lo asigna a una variable promesa (promise).
+		* Luego se ejecuta la functio init del TreeModel que se engargara de convertir y retornar los nodos en una estructura de arbol utilizando la libreria TreeModel (colocar link), esta estructura se asigna al ambito ($scope) de la aplicacion en la variable $scope.tree.
+	   
+* MODULO PICASSO
+
+	|-CONTROLADOR
+		*Este controlador se encarga de ejecutar la funcion init del PicassoModel que se encarga de crear el path data <path d="...." /> para cada nodo 
+
+	|-MODELO
+		*Este modelo se encarga de modificar los atributos graficos de los nodos (fill,fill_over,stroke, etc).
+
+* MODULO LAYERS

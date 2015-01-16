@@ -1,17 +1,25 @@
+/*=============================================================================
+TreeModel Model()
+  -Hacer la peticion al servidor para traer los nodos de cada proyecto 
+  -Esctructurar los nodos en una estructura de arbol
+  -Hacer busquedas de nodos en los arboles
+==============================================================================*/
+
 var TreeModel = (function () {
  
   var counter = 0;
  
   function init(nodes){
 
-    console.info('run: TreeModel::init()');
-    //Nodos 
-    this.nodes = nodes;
-    //Ordenar nodos en estructura de arbol
-    this.sort(this.nodes[0]);
-    //Arbol 
-    this.tree = (new TreeJSON()).parse(this.nodes[0]); //@overwrite parse({object}) tree-model.js
+    console.info('run: TreeModel::init() (dir:tree/TreeModel.js)');
+    
+    this.nodes = nodes; //Nodos traidos por el TreeService desde el servidor
+    this.sort(this.nodes[0]); //Ordenar nodos en estructura de arbol   
 
+    //Convierte la estructura de arbol en un Modelo de Arbol de la libreri TreeModel 
+    //@overwrite parse({object}) tree-model.js
+    this.tree = (new TreeJSON()).parse(this.nodes[0]); 
+    
     return this.tree;
 
   }
@@ -65,9 +73,9 @@ app.provider('TreeModel', function() {
 
     this.name = 'modelo';
 
-    this.$get = function(NodesService) {
+    this.$get = function(TreeService) {
 
-        TreeModel._service = NodesModel._service
+        TreeModel._service = TreeService;
 
         var name = this.name;
         var nodes = [];

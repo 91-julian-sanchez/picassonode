@@ -8,34 +8,27 @@ app = angular.module('nodes',[]);
  *Se injecta al controlador el modelos NodesModel y PicassoModel y el ambito $scope
 */
 
-app.controller("NodesController", function($scope, NodesModel , PicassoModel , TreeModel ) {
+app.controller("NodesController", function($scope, TreeModel, PicassoModel , NodesModel  ) {
 
   console.info('run: NodesController (dir:nodes/NodesController.js)');
  
   //Inicia servicio
-  promise = NodesModel._service;
+  promise = TreeModel._service;
 
   promise.then(
     function(response) { 
 
-      console.info('NodesController:promise:response()'); 
-
-      $scope.tree = TreeModel.init( response.data.nodes );
-      console.log($scope.tree);
-    
-      //Configuracion modelo
-     // NodesModel.setNodes($scope.tree_aux);//no esta haciendo nada
-    
+      console.info('run: NodesController:promise:response() (dir:nodes/NodesController.js)'); 
+            
       //Configuracion $scope(ambito)
-      $scope.nodes = $scope.tree; //Guarda nodos en $scope(ambito).
+
+      $scope.tree = TreeModel.init( response.data.nodes ); //Convierte y retorna nodos en una estructura de arbol
       $scope.current_node = null; // Nodo actual.
       $scope.multiselected_nodes = null; //Modo multiseleccion.
       $selected_current_nodes=null;
    
       //Actualiza $scope
-      $scope.$watchCollection('current_node', function(newModel, oldModel) {
-          
-      });
+      $scope.$watchCollection('current_node', function(newModel, oldModel) { });
 
       //Actualiza $scope
       $scope.$watchCollection('selected_current_nodes', function(newModel, oldModel) {

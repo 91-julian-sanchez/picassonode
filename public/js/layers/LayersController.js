@@ -1,7 +1,8 @@
-app.controller("layersController", function($scope, NodesModel , PicassoModel , TreeModel ) {
+app.controller("layersController", function($scope, TreeModel, NodesModel , PicassoModel ) {
     
+    console.info('run: layersController (dir:layers/layersController.js)');
 	//Inicia servicio
-    promise = NodesModel._service;
+    promise = TreeModel._service;
 
     promise.then(
 	    function(response) { 

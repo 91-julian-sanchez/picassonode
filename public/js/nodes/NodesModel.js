@@ -62,9 +62,9 @@ app.provider('NodesModel', function() {
 
     this.name = 'modelo';
 
-    this.$get = function(NodesService) {
+    this.$get = function(TreeService) {
 
-        NodesModel._service = NodesService;
+        NodesModel._service = TreeService._service;
         var name = this.name;
         var nodes = [];
 

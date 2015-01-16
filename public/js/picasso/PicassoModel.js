@@ -9,7 +9,7 @@ var PicassoModel = (function () {
  
   //inicia Picasso
   function init(nodes){
-    console.log('run: PicassoModel::init()');
+    console.info('run: PicassoModel::init() (dir:picasso/PicassoModel.js)');
     this.nodes = nodes;
     this.nodeTraversal(this.nodes);   
   }
@@ -203,9 +203,9 @@ app.provider('PicassoModel', function() {
 
     this.name = 'modelo';
 
-    this.$get = function(NodesService) {
+    this.$get = function(TreeService) {
 
-        PicassoModel._service = NodesModel._service
+        PicassoModel._service = TreeService._service
 
         var name = this.name;
         var nodes = [];
