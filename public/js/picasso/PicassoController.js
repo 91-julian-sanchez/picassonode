@@ -1,6 +1,6 @@
 app.controller("PicassoController",function($scope, NodesModel, PicassoModel ){
 
-  console.info('run: PicassoController');
+  console.info('run: PicassoController (dir:picasso/PicassoController.js)');
 
   //La promesa es lo ultimo proceso en ejecutarse
 

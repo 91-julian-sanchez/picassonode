@@ -19,23 +19,39 @@ Orden controladores
 |FLUJO DE EJECUCION                          |
 /*==========================================*/
 
-* Se invocan las dependencias de los controladores:
+*Se invocan las dependencias requeridas por el controlador.
 
-	NodesController
-	-NodesModel    | dir: NodesModel.js
-	-PicassoModel  | dir: PicassoModel.js 
+	Controllers
+		|-NodesController
+			Depeendencias
+				- <modelo>TreeModel	    | dir: tree/TreeModel.js
+				- <modelo>NodesModel    | dir: nodes/NodesModel.js
+				- <modelo>PicassoModel  | dir: picasso/PicassoModel.js 
 
-	PicassoController
-	-NodesModel    NodesModel.js 
-	-PicassoModel  PicassoModel.js 
+		|-PicassoController
+			Depeendencias
+				- <modelo>NodesModel    | dir: nodes/NodesModel.js 
+				- <modelo>PicassoModel  | dir: picasso/PicassoModel.js 
+
+		|-LayersController
+			Depeendencias
+				- <modelo>TreeModel	    | dir: tree/TreeModel.js
+				- <modelo>NodesModel    | dir: nodes/NodesModel.js
+				- <modelo>PicassoModel  | dir: picasso/PicassoModel.js 
+
 
 * Los Modelos ejecutan los servicios app.service() ejecutando las peticiones REST (Get, Post , Put, Delete) que requieran los controladores.
 
-	NodesController
-	-NodesModel._service = (NodesService | dir: NodesService.js)   
+	NodesModel
+	-NodesModel._service = (NodesService | dir: nodes/NodesService.js)   
 
-	PicassoController
-	-PicassoModel._service = (NodesService | dir: NodesService.js)
+	PicassoModel
+	-PicassoModel._service = (NodesService | dir: nodes/NodesService.js)
+
+	TreeModel
+	-TreeModel._service = (NodesService | dir: nodes/NodesService.js)
+
+* Inician los controladores
 
 * Se ejecutan los script existentes en el controlador (Nota: solo codigo no asincrono).
 
@@ -53,5 +69,6 @@ Orden controladores
 	  });
 
 
+* MODULO NODES
 	   
-	
+

@@ -61,6 +61,8 @@ angular.module('TreeModel',[]);
 //Provedor del modelo
 app.provider('TreeModel', function() {
 
+    console.info('run: TreeModel (dir:tree/TreeModel.js)');
+
     this.name = 'modelo';
 
     this.$get = function(NodesService) {

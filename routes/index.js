@@ -4,33 +4,16 @@ var dummy_core = {
 	"title":"jVectormaps",
 	"nodes": [
 	    {
-	      "points": [{
-	          "x": "0",
-	          "y": "150"
-	        },
-	        {
-	          "x": "150",
-	          "y": "150"
-	        },
-	        {
-	          "x": "150",
-	          "y": "0"
-	        },
-	        {
-	          "x": "0",
-	          "y": "0"
-	        }],
 	      "id": "C0",
 	      "name": "Cluster0",
 	      "fill": "#530053",
 	      "fill_over": "#530053",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "children":[{"id": "N0"},{"id": "N3"},{"id": "N5"}]
-	    },
-	    {
+	      "parent":"",
+	      "children":[{"id": "N0"},{"id": "N1"},{"id": "N6"}],
 	      "points": [
-	        {
+	      	{
 	          "x": "0",
 	          "y": "150"
 	        },
@@ -46,97 +29,129 @@ var dummy_core = {
 	          "x": "0",
 	          "y": "0"
 	        }
-	      ],
+	      ]
+	    },
+	    {
 	      "id": "N0",
 	      "name": "N0",
 	      "fill": "#530053",
-	      "fill_over": "red",
+	      "fill_over": "#530053",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "children":[{"id": "N1"},{"id": "N2"}]
-	    },
-	    {
+	      "parent":"C0",
+	      "children":[{"id": "N2"},{"id": "N5"}],
 	      "points": [
 	        {
 	          "x": "0",
-	          "y": "-150"
+	          "y": "150"
 	        },
 	        {
-	          "x": "-150",
-	          "y": "-150"
+	          "x": "150",
+	          "y": "150"
 	        },
 	        {
-	          "x": "-150",
+	          "x": "150",
 	          "y": "0"
 	        },
 	        {
 	          "x": "0",
 	          "y": "0"
 	        }
-	      ],
+	      ]
+	    },
+	    {
 	      "id": "N1",
 	      "name": "N1",
 	      "fill": "#530053",
 	      "fill_over": "#530053",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "children":[]
-	    },
-	    {
+	      "parent":"C0",
+	      "children":[{"id": "N4"},{"id": "N3"}],
 	      "points": [
 	        {
 	          "x": "0",
-	          "y": "50"
+	          "y": "-150"
 	        },
 	        {
-	          "x": "50",
-	          "y": "50"
+	          "x": "-150",
+	          "y": "-150"
 	        },
 	        {
-	          "x": "50",
+	          "x": "-150",
 	          "y": "0"
 	        },
 	        {
 	          "x": "0",
 	          "y": "0"
 	        }
-	      ],
+	      ]
+	    },
+	    {
 	      "id": "N2",
 	      "name": "N2",
 	      "fill": "#210021",
 	      "fill_over": "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "children":[]
-	    },    
-	    {
+	      "parent":"N0",
+	      "children":[],
 	      "points": [
 	        {
 	          "x": "0",
-	          "y": "-25"
+	          "y": "50"
 	        },
 	        {
-	          "x": "-25",
-	          "y": "-25"
+	          "x": "50",
+	          "y": "50"
 	        },
 	        {
-	          "x": "-25",
+	          "x": "50",
 	          "y": "0"
 	        },
 	        {
 	          "x": "0",
 	          "y": "0"
 	        }
-	      ],
+	      ]
+	    },    
+	    {
 	      "id": "N3",
 	      "name": "N3",
 	      "fill": "#210021",
 	      "fill_over": "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "children":[{"id":"N4"}]
+	      "parent":"N1",
+	      "children":[],
+	      "points": [
+	        {
+	          "x": "0",
+	          "y": "-25"
+	        },
+	        {
+	          "x": "-25",
+	          "y": "-25"
+	        },
+	        {
+	          "x": "-25",
+	          "y": "0"
+	        },
+	        {
+	          "x": "0",
+	          "y": "0"
+	        }
+	      ]    
 	    },
 	    {
+	      "id": "N4",
+	      "name": "N4",
+	      "fill": "#210021",
+	      "fill_over":  "#210021",
+	      "stroke": "#530053",
+	      "strokeWidth": "1.5",
+	      "parent":"N1",
+	      "children":[],
 	      "points": [
 	        {
 	          "x": "-50",
@@ -154,16 +169,17 @@ var dummy_core = {
 	          "x": "-150",
 	          "y": "-100"
 	        }
-	      ],
-	      "id": "N4",
-	      "name": "N4",
+	      ]
+	    },
+	    { 
+	      "id": "N5",
+	      "name": "N5",
 	      "fill": "#210021",
-	      "fill_over":  "#210021",
+	      "fill_over": "#210021",
 	      "stroke": "#530053",
 	      "strokeWidth": "1.5",
-	      "children":[]
-	    },
-	    {
+	      "parent":"N0",
+	      "children":[],
 	      "points": [
 	        {
 	          "x": "70",
@@ -190,14 +206,35 @@ var dummy_core = {
 	          "y": "150"
 	        }
 	      
-	      ],
-	      "id": "N5",
-	      "name": "N5",
-	      "fill": "#210021",
-	      "fill_over": "#210021",
-	      "stroke": "#530053",
+	      ]
+	    },
+	    { 
+	      "id": "N6",
+	      "name": "N6",
+	      "fill": "#2FB5F3",
+	      "fill_over": "#0AA4EE",
+	      "stroke": "#038CCF",
 	      "strokeWidth": "1.5",
-	      "children":[]
+	      "parent":"C0",
+	      "children":[],
+	      "points": [
+	        {
+	          "x": "18",
+	          "y": "-24"
+	        },
+	        {
+	          "x": "18",
+	          "y": "-84"
+	        },
+	        {
+	          "x": "108",
+	          "y": "-84"
+	        },
+	        {
+	          "x": "108",
+	          "y": "-24"
+	        }
+	      ]
 	    }
 	]
 };

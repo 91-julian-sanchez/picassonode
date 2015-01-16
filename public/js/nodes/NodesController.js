@@ -10,7 +10,7 @@ app = angular.module('nodes',[]);
 
 app.controller("NodesController", function($scope, NodesModel , PicassoModel , TreeModel ) {
 
-  console.info('run: NodesController');
+  console.info('run: NodesController (dir:nodes/NodesController.js)');
  
   //Inicia servicio
   promise = NodesModel._service;

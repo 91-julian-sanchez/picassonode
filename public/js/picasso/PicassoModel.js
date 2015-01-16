@@ -199,6 +199,8 @@ angular.module('PicassoModel',[]);
 //Provedor del modelo
 app.provider('PicassoModel', function() {
 
+    console.info('run: PicassoModel (dir:Picasso/PicassoModel.js)');
+
     this.name = 'modelo';
 
     this.$get = function(NodesService) {

@@ -58,7 +58,7 @@ angular.module('NodesModel',[]);
 
 app.provider('NodesModel', function() {
 
-    console.info('NodesModel.js - NodesModel');
+    console.info('run: NodesModel (dir:nodes/NodesModel.js)');
 
     this.name = 'modelo';
 
